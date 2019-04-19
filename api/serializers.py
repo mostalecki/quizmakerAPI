@@ -12,7 +12,7 @@ class QuizSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quiz
-        fields = ('title', 'totalPoints', 'answers')
+        fields = ('title', 'totalPoints', 'questions')
 
     def create(self, validated_data):
         questions_data = validated_data.pop('questions')
