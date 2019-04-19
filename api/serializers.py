@@ -13,3 +13,10 @@ class QuizSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quiz
         fields = ('title', 'totalPoints', 'answers')
+
+    def create(self, validated_data):
+        questions_data = validated_data.pop('questions')
+        quiz = Quiz.objects.create(**validated_data)
+        for question_data in questions_data:
+            Question.objects.create(quiz=quiz, **question_data)
+        return quiz
