@@ -25,5 +25,11 @@ class QuizSerializer(serializers.ModelSerializer):
         questions_data = validated_data.pop('questions')
         quiz = Quiz.objects.create(**validated_data)
         for question_data in questions_data:
-            Question.objects.create(quiz=quiz, **question_data)
+            answers_data = question_data.pop('answers')
+            question = Question.objects.create(quiz=quiz, **question_data)
+
+            for answer_data in answers_data:
+                Answer.objects.create(question=question, **answer_data)
+            question.save()
+
         return quiz
