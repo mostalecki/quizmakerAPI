@@ -6,3 +6,7 @@ from .serializers import QuizSerializer, QuizListSerializer
 class QuizList(generics.ListCreateAPIView):
     queryset = Quiz.objects.all()
     serializer_class = QuizListSerializer
+
+class QuizDetail(generics.RetrieveAPIView):
+	queryset = Quiz.objects.all()
+	serializer_class = QuizSerializer
