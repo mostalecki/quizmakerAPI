@@ -14,7 +14,7 @@ class Question(models.Model):
     answers = models.CharField(max_length=200)
     isCorrect = models.CharField(max_length=50)
     points = models.IntegerField()
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, related_name='questions' on_delete=models.CASCADE)
 
     def set_answers(self, x):
         self.answers = json.dumps(x)
