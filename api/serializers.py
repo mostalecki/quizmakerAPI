@@ -33,3 +33,9 @@ class QuizSerializer(serializers.ModelSerializer):
             question.save()
 
         return quiz
+
+class QuizListSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Quiz
+        fields = ('id', 'title', 'url')
