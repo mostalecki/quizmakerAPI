@@ -1,11 +1,18 @@
 from rest_framework import serializers
-from .models import Quiz, Question
+from .models import Quiz, Question, Answer
+
+class AnswerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Answer
+        fields = ('text', 'isCorrect')
 
 class QuestionSerializer(serializers.ModelSerializer):
+    answers = AnswerSerializer(many=True, required=True)
 
     class Meta:
         model = Question
-        fields = ('text', 'answers', 'isCorrect', 'points')
+        fields = ('text', 'answers', 'points')
 
 class QuizSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many=True, required=True)

@@ -11,19 +11,10 @@ class Quiz(models.Model):
 
 class Question(models.Model):
     text = models.CharField(max_length=200)
-    answers = models.CharField(max_length=200)
-    isCorrect = models.CharField(max_length=50)
     points = models.IntegerField()
     quiz = models.ForeignKey(Quiz, related_name='questions', on_delete=models.CASCADE)
 
-    def set_answers(self, x):
-        self.answers = json.dumps(x)
-
-    def get_answers(self):
-        return json.loads(self.answers)
-
-    def set_isCorrect(self, x):
-        self.isCorrect = json.dumps(x)
-
-    def get_isCorrect(self):
-        return json.loads(self.isCorrect)
+class Answer(models.Model):
+    text = models.CharField(max_length=100)
+    isCorrect = models.BooleanField(default=False)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
